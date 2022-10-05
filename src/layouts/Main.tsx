@@ -4,6 +4,9 @@ import styled from 'styled-components'
 import Logo from '../assets/logo.svg'
 import IconBasket from '../assets/icons/basket.svg'
 
+const Layout = styled.div`
+	background-color: #fafafa;
+`
 const Header = styled.div`
 	background-color: #1ea4ce;
 
@@ -46,6 +49,8 @@ const ChildContainer = styled.div`
 	width: 80%;
 	margin-left: auto;
 	margin-right: auto;
+	padding-top: 38.36px;
+	padding-bottom: 40px;
 `
 
 type MainLayoutProps = {
@@ -53,7 +58,7 @@ type MainLayoutProps = {
 }
 const MainLayout = ({ children }: MainLayoutProps) => {
 	return (
-		<div>
+		<Layout>
 			<Header>
 				<div id='header'>
 					<div>
@@ -66,7 +71,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
 				</div>
 			</Header>
 			<ChildContainer>{children}</ChildContainer>
-		</div>
+		</Layout>
 	)
 }
 
