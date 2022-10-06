@@ -1,9 +1,18 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useDispatch } from 'react-redux'
 
 import ProductImage from '../assets/product-image.webp'
+import IItem from '../interfaces/item.interface'
+
+import { addItem } from '../store/basket'
+import { screens } from '../utils/Screens'
+
 const Container = styled.div`
-	width: 25%;
+	@media screen and ${screens.md} {
+		width: 25%;
+	}
+	width: 33.33%;
 	display: flex;
 	flex-direction: column;
 	margin-bottom: 22px;
@@ -38,6 +47,8 @@ const ProductPrice = styled.div`
 const ProductName = styled.div`
 	color: #191919;
 
+	flex-grow: 1;
+
 	font-weight: 600;
 	font-size: 14px;
 	line-height: 20px;
@@ -57,15 +68,24 @@ const AddButton = styled.button`
 
 	margin: 0 20px;
 `
-const ProductCard = () => {
+
+type ProductCardProps = {
+	product: IItem
+}
+const ProductCard = ({ product }: ProductCardProps) => {
+	const dispatch = useDispatch()
+
+	const addProductToBasket = () => {
+		dispatch(addItem(product))
+	}
 	return (
 		<Container>
 			<ImageContainer>
 				<img src={ProductImage} alt='product-img' />
 			</ImageContainer>
-			<ProductPrice>price</ProductPrice>
-			<ProductName>name</ProductName>
-			<AddButton>Add</AddButton>
+			<ProductPrice>₺ {product.price}</ProductPrice>
+			<ProductName>{product.name}</ProductName>
+			<AddButton onClick={addProductToBasket}>Add</AddButton>
 		</Container>
 	)
 }
