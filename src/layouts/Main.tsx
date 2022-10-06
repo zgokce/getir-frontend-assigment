@@ -84,6 +84,7 @@ const Basket = styled.button`
 `
 const ChildContainer = styled.div`
 	max-width: 1236px;
+	min-height: 100vh;
 	@media screen and ${screens.xl} {
 		width: 85%;
 	}
