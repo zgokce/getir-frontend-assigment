@@ -4,3 +4,20 @@ body {
   margin: 0;
   font-family: 'Open Sans', sans-serif;
 }
+
+::-webkit-scrollbar {
+  width: 4px;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: white;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #E0E0E0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: white;
+}
