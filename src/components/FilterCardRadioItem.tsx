@@ -1,6 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import IconCheck from '../assets/icons/check.svg'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../store'
+import { setSorting } from '../store/filter'
+import { filterItems } from '../helpers/items'
+import { setFilteredItems } from '../store/item'
 
 const ItemContainer = styled.div`
 	display: flex;
@@ -20,7 +25,7 @@ const Radio = styled.button`
 	align-items: center;
 
 	> input {
-		display: none;
+		//display: none;
 	}
 `
 const Label = styled.label`
@@ -30,27 +35,31 @@ const Label = styled.label`
 	font-size: 14px;
 	line-height: 18px;
 `
+
 type FilterBoxRadioItemProps = {
 	id: string
-	selected: boolean
 	label: string
 }
-const FilterCardRadioItem = ({
-	id,
-	selected,
-	label,
-}: FilterBoxRadioItemProps) => {
-	const [radioSelected, setRadioSelected] = useState(selected)
 
-	const onRadioSelectedChange = () => setRadioSelected(!radioSelected)
+const FilterCardRadioItem = ({ id, label }: FilterBoxRadioItemProps) => {
+	const dispatch = useDispatch()
+	const { items } = useSelector((state: RootState) => state.items)
+	const filters = useSelector((state: RootState) => state.filter)
+
+	const radioItemOnClick = () => {
+		dispatch(setSorting(id))
+		const filteredItems = filterItems(filters, items)
+		dispatch(setFilteredItems(filteredItems))
+	}
 
 	return (
 		<ItemContainer>
-			<Radio onClick={onRadioSelectedChange}>
-				{radioSelected && <img src={IconCheck} alt='check-icon' />}
-				<input type='radio' id={id} onChange={onRadioSelectedChange} />
+			<Radio onClick={radioItemOnClick}>
+				{filters.sorting === id && <img src={IconCheck} alt='check-icon' />}
 			</Radio>
-			<Label htmlFor={id}>{label}</Label>
+			<Label onClick={radioItemOnClick} htmlFor={id}>
+				{label}
+			</Label>
 		</ItemContainer>
 	)
 }
