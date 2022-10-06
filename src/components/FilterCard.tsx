@@ -11,10 +11,21 @@ const Label = styled.div`
 const FilterContainer = styled.div`
 	padding: 24px;
 	background-color: white;
+`
+const ChildContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
+	max-height: 260px;
+	> div.items {
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		margin-top: -16px;
+	}
 `
+
 type FilterBoxProps = {
 	filterLabel: string
 	children: React.ReactNode
@@ -23,7 +34,9 @@ const FilterCard = ({ filterLabel, children }: FilterBoxProps) => {
 	return (
 		<div>
 			<Label>{filterLabel}</Label>
-			<FilterContainer>{children}</FilterContainer>
+			<FilterContainer>
+				<ChildContainer>{children}</ChildContainer>
+			</FilterContainer>
 		</div>
 	)
 }
